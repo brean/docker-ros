@@ -1,0 +1,6 @@
+{
+    "name": "ROS 2 Development Container",
+    "privileged": true,
+    "workspaceFolder": "/ws",
+    "dockerComposeFile": "part1/docker-compose.yml"
+}
