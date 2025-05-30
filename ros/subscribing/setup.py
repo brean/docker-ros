@@ -1,8 +1,10 @@
 from setuptools import find_packages, setup
+from pathlib import Path
 
-package_name = 'publishing'
+package_name = 'subscribing'
+BASE_PATH = Path(__file__).parent
 
-with open('../README.md', 'r', encoding='utf-8') as fh:
+with open(BASE_PATH / 'README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(
@@ -13,18 +15,19 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('README.md', ['README.md']),
     ],
     install_requires=['setuptools', 'fastapi'],
     zip_safe=True,
     author="Andreas Bresser",
-    description="Publishing",
+    description="Subscribing to data",
     long_description=long_description,
     long_description_content_type="markdown",
     license="BSD-3-Clause",
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'publishing = publishing.main:main',
+            'subscribing = subscribing.main:main',
         ],
     },
 )

@@ -2,5 +2,6 @@
     "name": "ROS 2 Development Container",
     "privileged": true,
     "workspaceFolder": "/ws",
-    "dockerComposeFile": "part1/docker-compose.yml"
+    "dockerComposeFile": "../part2/docker-compose.yml",
+    "service": "pubsubdev"
 }

@@ -1,0 +1,18 @@
+services:
+  publishing:
+    build:
+      context: ../ros
+      dockerfile: Dockerfile-publishing
+      args:
+        ROS_DISTRO: jazzy
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  subscribing:
+    build:
+      context: ../ros
+      dockerfile: Dockerfile-subscribing
+      args:
+        ROS_DISTRO: jazzy
+    environment:
+      - PYTHONUNBUFFERED=1
