@@ -1,11 +1,6 @@
 ARG ROS_DISTRO=jazzy
 FROM ros:${ROS_DISTRO}
 
-RUN apt-get update -qq \
-    && apt-get install -y \
-    ros-${ROS_DISTRO}-std-msgs \
-    && rm -rf /var/lib/apt/lists/*
-
 # TODO: check how we include the entrypoint for the devcontainer?
 COPY entrypoint.bash /entrypoint.bash
 RUN chmod +x /entrypoint.bash
@@ -15,9 +10,9 @@ ENTRYPOINT ["/entrypoint.bash"]
 ENV ROS_WORKSPACE=/ws
 WORKDIR ${ROS_WORKSPACE}
 
-COPY ./publishing ${ROS_WORKSPACE}/publishing
-COPY ./subscribing ${ROS_WORKSPACE}/subscribing
+COPY ./publishing/ ${ROS_WORKSPACE}/publishing
+COPY ./subscribing/ ${ROS_WORKSPACE}/subscribing
 COPY README.md ${ROS_WORKSPACE}/README.md
 
-RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    colcon build --symlink-install
+#RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
+#    colcon build --symlink-install

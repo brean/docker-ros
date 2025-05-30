@@ -1,21 +1,16 @@
 ARG ROS_DISTRO=jazzy
 FROM ros:${ROS_DISTRO}
 
-RUN apt-get update -qq \
-    && apt-get install -y \
-    ros-${ROS_DISTRO}-std-msgs \
-    && rm -rf /var/lib/apt/lists/*
-
 COPY entrypoint.bash /entrypoint.bash
 RUN chmod +x /entrypoint.bash
 ENTRYPOINT ["/entrypoint.bash"]
 
 ENV ROS_WORKSPACE=/ws
 WORKDIR ${ROS_WORKSPACE}
-COPY ./publishing ${ROS_WORKSPACE}/publishing
+COPY ./publishing/ ${ROS_WORKSPACE}/publishing
+COPY README.md /ws/README.md
+
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build
-
-COPY README.md /ws/README.md
 
 CMD ["ros2", "run", "publishing", "publishing"]
