@@ -11,7 +11,7 @@ You need
 # Part 1: The basics docker and ROS without devcontainer
 First lets take a look at a simple ROS 2 setup with two custom ros packages in the `ros`-folder, it contains one package that publishes and a second package with a ROS 2 package that has a subscriber to these messages. Its taken from the [tutorial for writing a basic publisher and subscriber in python.](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) So it should be easy to understand however both single subscriber and publisher scripts are accompanied by a some files to create individual packages for both as you might find in a more complex ROS 2 setup.
 
-The application for this could be one ROS-package that you install on your PC while the other is running on your robot.
+The application for this could be one ROS-package that you install on your PC while the other is running on your robot (often times accompanied by a third package that contains shared ROS-messages on both but as we are only sending basic strings we use the `std_msgs`-package that comes with our ROS 2 installation).
 
 Open a terminal, cd into the `part1`-folder of this repository and type `docker compose up publishing subscribing`. It will build and run the 2 docker images and start 2 docker container, one for publishing and one for subscribing, one outputs to the local docker network and the other is receiving these messages.
 The source for both packages can be found in the `ros/`-folder
@@ -44,7 +44,7 @@ Volumes help with smaller changes while developing your code but you still need 
 
 But this already makes it nicer to work with docker and ROS writing python, but we still have to restart the docker container manually, it would be nice if we could watch the file system for changes and restart our ros-node automatically, so lets do that next!
 
-# Part 3: automatically reloading using watchdog
+# Part 3: (optional) automatically reloading using watchdog
 For this we need to deviate from the examples and extend our code. 
 
 In this part we extend on the previous tutorial and use the functionality of 
