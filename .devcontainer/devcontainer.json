@@ -2,6 +2,7 @@
     "name": "ROS 2 Development Container",
     "privileged": true,
     "workspaceFolder": "/ws",
-    "dockerComposeFile": "../part2/docker-compose.yml",
-    "service": "pubsubdev"
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "pubsubdev",
+    "postCreateCommand": "echo 'source /ws/install/setup.bash' >> ~/.bashrc"
 }

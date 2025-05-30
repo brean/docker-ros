@@ -1,21 +1,19 @@
 ARG ROS_DISTRO=jazzy
 FROM ros:${ROS_DISTRO}
 
-# TODO: check how we include the entrypoint for the devcontainer?
-COPY entrypoint.bash /entrypoint.bash
+COPY ./ros/entrypoint.bash /entrypoint.bash
 RUN chmod +x /entrypoint.bash
 ENTRYPOINT ["/entrypoint.bash"]
 
-# TODO: check, if the symlink worked?
 ENV ROS_WORKSPACE=/ws
 WORKDIR ${ROS_WORKSPACE}
 
-COPY ./publishing/ ${ROS_WORKSPACE}/publishing
-COPY ./subscribing/ ${ROS_WORKSPACE}/subscribing
+COPY ./ros/publishing/ ${ROS_WORKSPACE}/publishing
+COPY ./ros/subscribing/ ${ROS_WORKSPACE}/subscribing
 COPY README.md ${ROS_WORKSPACE}/README.md
 
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    colcon build
+    colcon build --symlink-install
 
 
 CMD ["/bin/bash"]

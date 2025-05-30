@@ -10,3 +10,4 @@ services:
       - ./ros/subscribing:/ws/subscribing:rw
     environment:
       - PYTHONUNBUFFERED=1
+    command: ["/bin/sh", "-c", "while sleep 1000; do :; done"] 

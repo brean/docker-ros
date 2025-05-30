@@ -3,7 +3,7 @@ This repository should teach you how to work with docker and ros in a modern dev
 
 ## Installation
 You need
-1. [VS Code](https://code.visualstudio.com/) (devContainer do not work with Codium)
+1. [VS Code](https://code.visualstudio.com/) (devContainer do not work with Codium, DevPod container might work)
 1. docker ([docker-ce](https://docs.docker.com/engine/install/) recommended)
    1. don't forget to do the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) (creating the `docker`-group and add yourself)
 1. (optional) [docker-nvidia-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if you have an nvidia-gpu and don't want software rendering for 3D tools like [rviz](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html).
