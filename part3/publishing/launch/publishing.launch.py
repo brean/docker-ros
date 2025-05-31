@@ -9,7 +9,6 @@ def generate_launch_description():
             executable='publishing',
             name='publishing',
             output='screen',
-            respawn=True,
-            respawn_delay=1.0
+            respawn=True
         ),
     ])
