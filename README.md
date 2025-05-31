@@ -19,7 +19,9 @@ We will look at more realistic use cases in the later parts.
 Open a terminal, cd into the `part1`-folder of this repository and type `docker compose up publishing subscribing`. It will build and run the 2 docker images and start 2 docker container, one for publishing and one for subscribing, one outputs to the local docker network and the other is receiving these messages.
 The source for both packages can be found in the `ros/`-folder
 
-When you press CTRL+C both container should exit, if you just close the terminal window don't forget to run `docker compose down` to make sure both docker container and the network are removed.
+When you press CTRL+C both container should exit, if you can't wait for them to stop, press CTRL+C again or close the terminal window.
+
+Afterwards you need to run `docker compose down` in the `part1`-folder to make sure both docker container and the network are removed.
 
 This is nice as you now have a ROS 2 setup system-independent 
 All files are build in your container, however you need to rebuild the docker container with `docker compose build` every time you change any file in your ros-packages and the files from the docker image differ from your local files. 
@@ -31,7 +33,7 @@ All files are build in your container, however you need to rebuild the docker co
 1. re-run the `docker compose build`-command and then restart with `docker compose up`, now you should see the updated data getting published.
 
 # Part 2: Docker Volumes
-Using docker volumes you can increase your development speed: you don't have to re-run the `docker compose build` command all the time when you change code. Note that this only helps you for interpreted languages like python, for C/C++ applications it makes more sense to rebuild the whole package. 
+Using docker volumes you can increase your development speed: you don't have to re-run the `docker compose build` command all the time when you change code. Note that this only helps you for interpreted languages like python, for C/C++ applications it makes more sense to rerun the docker compose build-process manually (as the code has to compile anyway) and use a compile cache.
 
 **Try for yourself**:
 1. change into the `part2`-folder and run `docker compose build`
