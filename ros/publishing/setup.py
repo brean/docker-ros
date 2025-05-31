@@ -1,12 +1,15 @@
-from setuptools import find_packages, setup
+from glob import glob
 from pathlib import Path
 
-package_name = 'publishing'
+from setuptools import find_packages, setup
 
+
+package_name = 'publishing'
 BASE_PATH = Path(__file__).parent
 
 with open(BASE_PATH / 'README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
+
 
 setup(
     name=package_name,
@@ -16,6 +19,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/launch', glob('launch/*.py')),
         ('README.md', ['README.md'])
     ],
     install_requires=['setuptools', 'fastapi'],

@@ -1,0 +1,25 @@
+services:
+  publishing:
+    build:
+      context: ../ros
+      dockerfile: ../part3/Dockerfile-publishing
+      args:
+        ROS_DISTRO: jazzy
+    volumes:
+      # overwrite only specific files in the container, add new node-script
+      - ./publishing/watchdog_dev.py:/ws/publishing/publishing/main.py:rw
+      - ./publishing/node.py:/ws/publishing/publishing/node.py:rw
+      - ./publishing/launch/publishing.launch.py:/ws/publishing/launch/publishing.launch.py:rw
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  subscribing:
+    build:
+      context: ../ros
+      dockerfile: ../part2/Dockerfile-subscribing
+      args:
+        ROS_DISTRO: jazzy
+    volumes:
+      - ../ros/subscribing:/ws/subscribing:rw
+    environment:
+      - PYTHONUNBUFFERED=1

@@ -13,4 +13,4 @@ COPY ./subscribing/README.md /ws/README.md
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build --symlink-install
 
-CMD ["ros2", "run", "subscribing", "subscribing"]
+CMD ["ros2", "launch", "subscribing", "subscribing.launch.py"]

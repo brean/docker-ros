@@ -13,4 +13,4 @@ COPY ./publishing/README.md /ws/README.md
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build
 
-CMD ["ros2", "run", "publishing", "publishing"]
+CMD ["ros2", "launch", "publishing", "publishing.launch.py"]
