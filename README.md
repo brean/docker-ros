@@ -1,5 +1,5 @@
 # Dev Container and ROS 2
-This repository should teach you how to work with docker and ros in a modern development setup using Visual Studio Code and dev container. It also provides a source of example files and projects that you can use to build more complex robot systems.
+This repository should teach you how to work with docker and ros in a modern development setup using Visual Studio Code and dev container. It also provides a source of example files and links to examples and projects that you can use to build more complex robot systems.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -9,7 +9,7 @@ You need
 1. docker ([docker-ce](https://docs.docker.com/engine/install/) recommended)
    1. don't forget to do the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) (creating the `docker`-group and add yourself)
 1. (optional) [docker-nvidia-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if you have an nvidia-gpu and don't want software rendering for 3D tools like [rviz](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html).
-1. Beginner to intermediate ROS 2 and python knowledge, some docker basics.
+1. Beginner to intermediate ROS 2 and python knowledge, some docker basics. The [Tutorials](https://docs.ros.org/en/jazzy/Tutorials.html) on the ROS 2 website are a good start be aware of a steep learning curve if you are new to ROS!
 
 # Part 1: Docker and ROS (without devcontainer)
 Even if you want to use devContainer it is best practice to have a setup that also runs without it so people can run your container even if something does not work with their setup or if they want to use another IDE/Editor and not VS Code. I prefere `docker compose` to configure my docker container so I don't have to run long `docker`-commands.
@@ -89,6 +89,7 @@ TODO: Setup and start devcontainer and debug something
 
 # Part 5: Camera stream with RVIZ and C++
 TODO: rviz and ros2 bag
+
 TODO: recompile C++-code?
 
 # Part 6: Include a webserver to control a robot
@@ -109,4 +110,5 @@ TODO: 5.2 cross-compile for ARM64
 
 # Part 10: The DFKI Docker Image Development
 TODO: Link to basics on https://github.com/dfki-ric/docker_image_development
+
 TODO: create repo using docker_image_development and integrate it in devContainer.
