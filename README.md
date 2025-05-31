@@ -87,6 +87,8 @@ To have the full VS Code integration to use development tools like a local debug
 
 TODO: Setup and start devcontainer and debug something
 
+TODO: extend devContainer with some basic ros2 package, python-package and other dependencies
+
 # Part 5: Camera stream with RVIZ and C++
 TODO: rviz and ros2 bag
 
