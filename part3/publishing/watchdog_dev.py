@@ -1,5 +1,9 @@
 import sys
 import rclpy
+
+from rcl_interfaces.msg import ParameterDescriptor
+from rcl_interfaces.msg import ParameterType
+
 from watchdog.observers.polling import PollingObserver
 from watchdog.events import FileSystemEventHandler
 
@@ -23,8 +27,18 @@ class ReloadingPublisherMinimal(MinimalPublisher):
         self._running = True
         event_handler = CodeChangeHandler(self)
         self._observer = PollingObserver()
+
+        watch_path_descriptor = ParameterDescriptor(
+            type=ParameterType.PARAMETER_STRING,
+            description='The directory path to watch for code changes.'
+        )
+        self.declare_parameter(
+            'watch_path', '/ws/publishing/', watch_path_descriptor)
+        self._watch_path = self.get_parameter(
+            'watch_path').get_parameter_value().string_value
+
         self._observer.schedule(
-            event_handler, '/ws/publishing/', recursive=True)
+            event_handler, self._watch_path, recursive=True)
         self.get_logger().info('Watchdog starting observer.')
         self._observer.start()
 
