@@ -41,7 +41,7 @@ Using docker volumes you can increase your development speed: you don't have to 
 1. stop both docker container with CTRL+C and directly recreate it with `docker compose up`.
 1. Now you see the "I received:" - without the need of rebuilding the docker container!
 
-Note that we build the packages with `colcon` as part of the `docker compose build`-process. This means that only the code at the time you build the image gets copied into your docker image. If you remove the volume your old code will be used again, as it is stored in the image. This also means that when you have bigger changes or add new packages you want to rebuild the image.
+Note that we build the packages with `colcon` as part of the `docker compose build`-process in the Dockerfile. This means that only the code at the time you build the image gets copied into your docker image. If you remove the volume your old code will be used again, as it is stored in the image. This also means that when you have bigger changes or add new packages you want to rebuild the image.
 
 Volumes help with smaller changes while developing your code but you still need to rebuild the image when dependencies change or when you want to add additional nodes.
 
