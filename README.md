@@ -56,8 +56,8 @@ So volumes help with smaller changes while developing your code but you still ne
 
 Using volumes already makes it nicer to work with docker and ROS writing python code, but we still have to restart the docker container manually, it would be nice if we could watch the file system for changes and restart our ros-node automatically, so lets do that next!
 
-# Part 3: (optional) automatically reloading using watchdog
-For this we use the watchdog-package to check if the node changed and automatically restart it.
+# Part 3: More on volumes (use case of automatically reloading using watchdog)
+For automatically reloading file we use the Python 3 watchdog-package to check if the node changed and automatically restart it.
 
 Because the docker container has its own folder structure and we now overwrite and add single files you might notice that it gets hard to keep track of this structure in your head. Remember that you can attach a bash to the container and check with "ls" to look at the file system inside the container.
 
