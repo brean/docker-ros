@@ -24,7 +24,7 @@ class ReloadingPublisherMinimal(MinimalPublisher):
         event_handler = CodeChangeHandler(self)
         self._observer = PollingObserver()
         self._observer.schedule(
-            event_handler, '/ws/publishing/publishing/node.py')
+            event_handler, '/ws/publishing/', recursive=True)
         self.get_logger().info('Watchdog starting observer.')
         self._observer.start()
 
