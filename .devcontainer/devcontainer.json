@@ -4,5 +4,10 @@
     "workspaceFolder": "/ws",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "pubsubdev",
-    "postCreateCommand": "echo 'source /ws/install/setup.bash' >> ~/.bashrc"
+    "postCreateCommand": "echo 'source /ws/install/setup.bash' >> ~/.bashrc",
+    "extensions": [
+        "ms-python.debugpy",
+        "ms-python.python",
+        "ms-python.flake8"
+    ]
 }
