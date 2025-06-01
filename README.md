@@ -2,8 +2,11 @@
 This repository should teach you how to work with the [docker engine](https://docs.docker.com/engine/) and the latest stable ROS 2 LTE release [jazzy](https://docs.ros.org/en/jazzy/) in a modern development setup using [Visual Studio Code](https://code.visualstudio.com/) and [Dev Container](https://code.visualstudio.com/docs/devcontainers/create-dev-container). It also provides a source of example files and links to examples and projects that you can use to build more complex robot systems.
 
  - Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup (default configuration)
- - Part 2 and 3 teach details about Docker volumes
- - Part 4 introduces Dev Container
+ - Part 2 and 3 teach details about Docker volumes and handling file changes
+ - Part 4 introduces Dev Container and using breakpoints in VS Code
+ - Part 5 includes visual ros-tools (rviz2) and a different ROS 2 environment that is still simple but shows a more realistic use-case
+ - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
+ - Part 7 discuees dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -12,7 +15,8 @@ You need
 1. [VS Code](https://code.visualstudio.com/download) (If you want to use [Codium](https://vscodium.com/) you can use [DevPodContainers](https://github.com/3timeslazy/vscodium-devpodcontainers), however it requires some more steps to setup and is still experimental so we focus on VS Code).
 1. docker ([docker-ce](https://docs.docker.com/engine/install/) recommended)
    1. don't forget to do the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) (creating the `docker`-group and add yourself)
-1. (optional) [docker-nvidia-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if you have an nvidia-gpu and don't want software rendering for 3D tools like [rviz](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html).
+1. The [VS Code Dev Container extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (not needed for the first 3 parts)
+1. (optional) [docker-nvidia-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if you have an nvidia-gpu and don't want software rendering for 3D tools like [rviz](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html), starting at step 5.
 1. Beginner to intermediate ROS 2 and python knowledge, some docker basics. The [Tutorials](https://docs.ros.org/en/jazzy/Tutorials.html) on the ROS 2 website are a good start be aware of a steep learning curve if you are new to ROS!
 1. Some disk space as docker container can take up some GB.
 
@@ -98,14 +102,38 @@ When you look at the `docker-compose.yml`-file, you'll see that we overwrite the
 
 So we can use this to link any file or folder of the host system to any file or folder inside the docker container. Always make sure that the file names are correct, if you mistype the file name in your docker-compose.yml on your host system for example, docker will create a folder for it and try to mount that folder into the docker image.
 
-In the next part we will take a look at devContainer so we can run commands directly from inside the VS Code terminal inside the docker container to execute ros2 commands quickly and increase our productivity even more.
+In the next part we will take a look at Dev Container so we can run commands directly from inside the VS Code terminal inside the docker container to execute ros2 commands quickly and increase our productivity even more.
 
-# Part 4: Basic ROS with docker in a devContainer
+# Part 4: Basic ROS with docker in a Dev Container
 To have the full [VS Code](https://code.visualstudio.com/docs/devcontainers/create-dev-container) integration to use development tools like a local python debugger we have a third docker image where we put both packages in one image for the dev-container.
 
-TODO: Setup and start devcontainer, add breakpoint and debug something
+There is already a Dev Container setup for this repository, you find it in form of the file `.devcontaienr/devcontainer.json`. This is the minimalistic setup that just points to the docker-compose.yml file in the root folder of the repository to use the pubsubdev-server defined in the file.
+For development we also install some ms-python extensions for VS Code so we can use debugpy to set a breakpoint.
 
-TODO: extend devContainer with some basic ros2 package, python-package and other dependencies
+The docker compose file itself includes volumes to the `publishing` and `subscribing` folders which both get installed inside the docker container. Because we want to have a bit more control we do not use the automatic reloading feature from part 3 so we have to run the ros2 commands to start subscribing and publishing manually.
+
+Note that we also overwrite the command to run `sleep` infinitely. This is needed as it keeps the container alive so VS Code can attach to it. Attaching to a container is different from running a new container, we only use the container to synchronize files, it does not spawn a new container.
+
+**Try for yourself**
+1. Klick on the blue "><"-Icon in the bottom-left of the VS Code window.
+1. Select "Reopen in DevContainer"
+1. Open the file `publishing/publishing/main.py` and click on the play-button in the top-right. This starts the publisher in your terminal. Just let it running. Note that you started the node as simple ros-application without any ros setup.
+1. Open the file `subscribing/subscribing/main.py` and click left of line 19 to create a breakpoint when the listener-callback gets called.
+1. Instead of pressing the play button press the small arrow next to it and select `Python Debugger: Debug python file`. Again this runs the main-script as python file not thorugh ros but because we are inside the dev container we are using the python environment of our ros system so rclpy can be found and both scripts should be able to talk to each other so you should get the thrown into the debugger immediately when a message gets received:
+
+![](docs/images/breakpoint_in_dev_container.png)
+
+6. To see that debugging works you can check the value of `msg.data` by hovering over it with your mouse.
+1. You can now stop the debugger and exit the container again and switch back to the main repository inside your file system again by clicking on "File" > "Open Recent" > and click on the repository folder without "[Dev Container]" in the name (it should be the top entry in the list).
+
+Instead of running the `publishing/publishing/main.py` file from visual studio you could have also used the terminal:
+1. Go back inside the container (press on the blue "><"-Icon in the bottom-left of the VS Code window) and select "Reopen in Container" or select "File" > "Open Recent" and click on the folder with "[Dev Container]" in the name.
+1. Right-click in the file list and click on "Open in Integrated Terminal"
+1. In the terminal you can now run ROS-commands inside the attached ros container, so you can simply run `ros2 launch publishing publishing.launch.py` or `ros2 run publishing publishing` to start the publisher.
+
+Because it is a symlink-install you can quickly change the main.py file before running the ros2-command and the changes will be applied directly.
+
+This is the minimum basic setup for a dev-container, we will at another, still simple but more realistic setup in the next part.
 
 For more details read about the [VS Code Python debugging documentation](https://code.visualstudio.com/docs/python/debugging).
 
