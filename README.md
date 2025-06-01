@@ -25,7 +25,7 @@ Just ignore it or press the small X in the top-right corner to close it.
 
 If you already opened from inside the dev container or accidentially clicked on "Reopen in Container" click on "File" > "Open Recent" > and click on the folder without "[Dev Container]" in the name (it should be the top entry in the list).
 
-Even if you want to use devContainer it is best practice to have a setup that also runs without it so people can run your container even if something does not work with their setup or if they want to use another IDE/Editor and not VS Code. I prefere `docker compose` to configure my docker container so I don't have to run long `docker`-commands.
+Even if you want to use devContainer it is best practice to have a setup that also runs without it so people can run your container even if something does not work with their setup or if they want to use another IDE/Editor and not VS Code. It also makes it easier to deploy your docker container to the robot later on. I prefere `docker compose` to configure my docker container so I don't have to run long `docker`-commands.
 
 First lets take a look at a simple ROS 2 setup with two custom ros packages in the `ros`-folder, it contains one package that publishes and a second package that has a subscriber to these messages. Its taken from the [tutorial for writing a basic publisher and subscriber in python.](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) So it should be easy to understand however both single subscriber and publisher scripts are accompanied by a some files to create individual packages and launch files for both as you might find in a more complex ROS 2 setup.
 
@@ -37,7 +37,7 @@ Because they are separated services they both can be seen as individual machines
 Open a terminal, cd into the `part1`-folder of this repository and type `docker compose up publishing subscribing`. It will build and run the 2 docker images and start 2 docker container, one for publishing and one for subscribing, one outputs to the local docker network and the other is receiving these messages.
 The source for both packages can be found in the `ros/`-folder
 
-When you press CTRL+C both container should exit, if you can't wait for them to stop, press CTRL+C again or close the terminal window.
+When you press <kbd>Ctrl</kbd>+<kbd>c</kbd> both container should exit, if you can't wait for them to stop, press <kbd>Ctrl</kbd>+<kbd>c</kbd> again or close the terminal window.
 
 Afterwards you need to run `docker compose down` in the `part1`-folder to make sure both docker container and the network are removed.
 
@@ -64,7 +64,7 @@ Using docker volumes you can increase your development speed: you don't have to 
 1. run `docker compose up` and keep it running
 1. change the code, for example instead of "I heard: " you could print out something like "I received: " (in `ros/subscribing/subscribing/main.py`)
 1. save the file. You'll notice that the output of your docker compose command still continues with "I heared:"
-1. stop both docker container with CTRL+C and directly recreate it with `docker compose up`.
+1. stop both docker container with <kbd>Ctrl</kbd>+<kbd>c</kbd> and directly recreate it with `docker compose up`.
 1. Now you see the "I received:" - without the need of rebuilding the docker container!
 1. Run `docker compose down` inside the `part2`-folder for cleanup.
 
@@ -89,7 +89,7 @@ Because the docker container has its own folder structure and we now overwrite a
 root@8e117851d90b:/ws# ls -al /ws/build/publishing/launch/publishing.launch.py
 lrwxrwxrwx 1 root root 42 May 31 10:20 /ws/build/publishing/launch/publishing.launch.py -> /ws/publishing/launch/publishing.launch.py
 ```
-5. Press CTRL+C to exit the docker container.
+5. Press <kbd>Ctrl</kbd>+<kbd>c</kbd> to exit the docker container.
 1. As always run `docker compose down` for cleanup.
 
 Note that each container runs as its own instance, so the container running bash you just started and stopped is independent from your other subscription and publishing container and their file systems. They all share a few files from the volumes but all other files only exist while the container is running! So if you change any other file, add new files or delete files that are not linked to your file system via volume and you exit the container your changes are gone. If you start a new container with either `docker compose run`, `docker run` or `docker compose up` this new container gets created from the image as it was created from the Dockerfile, it has no memory of the container that came before.
