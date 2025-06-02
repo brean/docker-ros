@@ -6,7 +6,8 @@ This repository should teach you how to work with the [docker engine](https://do
  - Part 4 introduces Dev Container and using breakpoints in VS Code
  - Part 5 includes visual ros-tools (rviz2) and a different ROS 2 environment that is still simple but shows a more realistic use-case
  - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
- - Part 7 discuees dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
+ - Part 7 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
+ - Part 8 gives an example on how to deploy the docker image to your robot and some best practices.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -98,16 +99,16 @@ lrwxrwxrwx 1 root root 42 May 31 10:20 /ws/build/publishing/launch/publishing.la
 
 Note that each container runs as its own instance, so the container running bash you just started and stopped is independent from your other subscription and publishing container and their file systems. They all share a few files from the volumes but all other files only exist while the container is running! So if you change any other file, add new files or delete files that are not linked to your file system via volume and you exit the container your changes are gone. If you start a new container with either `docker compose run`, `docker run` or `docker compose up` this new container gets created from the image as it was created from the Dockerfile, it has no memory of the container that came before.
 
-When you look at the `docker-compose.yml`-file, you'll see that we overwrite the launch file with a local file of the same name, the only change is that this launch file automatically restarts the container, we also overwrite main.py with our `watchdog_dev.py`-file and finally we add a new node.py-file that includes a copy of our old subscriber-node.
+When you look at the `compose.yml`-file, you'll see that we overwrite the launch file with a local file of the same name, the only change is that this launch file automatically restarts the container, we also overwrite main.py with our `watchdog_dev.py`-file and finally we add a new node.py-file that includes a copy of our old subscriber-node.
 
-So we can use this to link any file or folder of the host system to any file or folder inside the docker container. Always make sure that the file names are correct, if you mistype the file name in your docker-compose.yml on your host system for example, docker will create a folder for it and try to mount that folder into the docker image.
+So we can use this to link any file or folder of the host system to any file or folder inside the docker container. Always make sure that the file names are correct, if you mistype the file name in your compose.yml on your host system for example, docker will create a folder for it and try to mount that folder into the docker image.
 
 In the next part we will take a look at Dev Container so we can run commands directly from inside the VS Code terminal inside the docker container to execute ros2 commands quickly and increase our productivity even more.
 
 # Part 4: Basic ROS with docker in a Dev Container
 To have the full [VS Code](https://code.visualstudio.com/docs/devcontainers/create-dev-container) integration to use development tools like a local python debugger we have a third docker image where we put both packages in one image for the dev-container.
 
-There is already a Dev Container setup for this repository, you find it in form of the file `.devcontaienr/devcontainer.json`. This is the minimalistic setup that just points to the docker-compose.yml file in the root folder of the repository to use the pubsubdev-server defined in the file.
+There is already a Dev Container setup for this repository, you find it in form of the file `.devcontaienr/devcontainer.json`. This is the minimalistic setup that just points to the compose.yml file in the root folder of the repository to use the pubsubdev-server defined in the file.
 For development we also install some ms-python extensions for VS Code so we can use debugpy to set a breakpoint.
 
 The docker compose file itself includes volumes to the `publishing` and `subscribing` folders which both get installed inside the docker container. Because we want to have a bit more control we do not use the automatic reloading feature from part 3 so we have to run the ros2 commands to start subscribing and publishing manually.
@@ -149,9 +150,52 @@ TODO: include https://github.com/brean/svelte-robot-control and gazebo
 TODO: discuss where to install what dependencies and show options like autoproj, vcs, ...
 
 # Part 8: Deploy to a robot
-On your robot you want to know exactly what is running. Its often the case that, after testing and deploying to your machine you make changes specifically for your robot on it. These changes often do not find their way back into documentation or your code base.
+On your robot you want to know exactly what software is running. Its often the case that, after testing and deploying to your robot you make changes specifically for your system on it. These changes sometimes do not find their way back into documentation or your code base. So instead lets look at different ways to deploy Docker images to the robot.
 
-TODO: 5.1 build package, push to robot (with and without publishing to dockerhub)
+### versioning
+In your compose.yml you can define an image name, we use this to give our image a tag including a version number and its version for example "jazzy_arm64_001" for a jazzy-based on arm64 with version number 0.0.1.
+
+### cross-building for another architecture
+To cross-build for another architecture (if you have an Intel/AMD or M1-mac CPU and your robot has an ARM64, for example a Raspberry Pi) you need to cross-build for this other architecture. This is fairly easy, just create a new builder for the arm64 architecture using buildx, if you define the services inside your compose.yml file they will just build. A script that creates a new builder if needed and runs docker could look like this:
+```bash
+#!/bin/bash
+# Set the name of the builder
+BUILDER_NAME="my_builder"
+
+# Check if the builder already exists
+if docker buildx inspect "$BUILDER_NAME" > /dev/null 2>&1; then
+    echo "Builder '$BUILDER_NAME' already exists."
+else
+    echo "Builder '$BUILDER_NAME' does not exist. Creating a new one..."
+    
+    # Create a new builder with the docker-container driver
+    docker buildx create --name "$BUILDER_NAME" --use --driver docker-container
+    
+    # Inspect the newly created builder
+    docker buildx inspect --bootstrap "$BUILDER_NAME"
+    
+    echo "Builder '$BUILDER_NAME' created and set as the active builder."
+fi
+docker compose build
+```
+
+After building you can optionally push directly to your configured docker registry using `docker compose push`. Don't forget to login to your registry by calling `docker login YOUR_REGISTRY` first. `dockerhub` is configured as default, so a simple `docker login` is enough if you want to publish there.
+
+### Without deploying to dockerhub
+If you don't want to publish your docker image to dockerhub or your robot does not have access to dockerhub you can simply save the build image and load it on the robot like this:
+```bash
+# on your PC
+docker save -o my_image.tar my_image:jazzy_arm64_001
+# copy this to the robot, change X.X.X.X to the actual IP of the robot, do NOT remove the colon (:) at the end
+scp my_image.tar robot@X.X.X.X:
+
+# now SSH  on the robot and load the image like this:
+docker load -i my_image.tar
+```
+Because the image can be a few GB big its recommended to connect PC and robot via cable.
+
+### Excample project
+As an example for a repository that can be used in production to build a docker container you can simply deploy on a raspberry pi take a look at the [Docker Environment for the Kobuki base](https://github.com/helloric/docker-env-kobuki)
 
 # Part 9: Cross-compile for ARM
 It is good practice to build your code in a docker image and only deploy that to the robot. If you deploy to a mobile ARM-based chip you want to cross-compile for that system.
