@@ -8,7 +8,7 @@ This repository should teach you how to work with the [docker engine](https://do
  - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
  - Part 7 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
  - Part 8 gives an example on how to deploy the docker image to your robot, how you cross-build it for your robots CPU and some best practices.
- - Part 9 is very specific for [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment.
+ - Part 9 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
