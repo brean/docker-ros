@@ -7,7 +7,8 @@ This repository should teach you how to work with the [docker engine](https://do
  - Part 5 includes visual ros-tools (rviz2) and a different ROS 2 environment that is still simple but shows a more realistic use-case
  - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
  - Part 7 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
- - Part 8 gives an example on how to deploy the docker image to your robot and some best practices.
+ - Part 8 gives an example on how to deploy the docker image to your robot, how you cross-build it for your robots CPU and some best practices.
+ - Part 9 is very specific for [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -197,12 +198,7 @@ Because the image can be a few GB big its recommended to connect PC and robot vi
 ### Excample project
 As an example for a repository that can be used in production to build a docker container you can simply deploy on a raspberry pi take a look at the [Docker Environment for the Kobuki base](https://github.com/helloric/docker-env-kobuki)
 
-# Part 9: Cross-compile for ARM
-It is good practice to build your code in a docker image and only deploy that to the robot. If you deploy to a mobile ARM-based chip you want to cross-compile for that system.
-
-TODO: 5.2 cross-compile for ARM64
-
-# Part 10: The DFKI Docker Image Development
+# Part 9: The DFKI Docker Image Development
 TODO: Link to basics on https://github.com/dfki-ric/docker_image_development
 
 TODO: create repo using docker_image_development and integrate it in devContainer.
