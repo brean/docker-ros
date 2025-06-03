@@ -8,7 +8,7 @@ This repository should teach you how to work with the [docker engine](https://do
  - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
  - Part 7 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
  - Part 8 gives an example on how to deploy the docker image to your robot, how you cross-build it for your robots CPU and some best practices.
- - Part 9 is about docker and networking and possible pitfalls and issues
+ - Part 9 is about docker and networking including possible pitfalls and issues
  - Part 10 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
@@ -202,7 +202,6 @@ As an example for a repository that can be used in production to build a docker 
 # Part 9: ROS 2 and network
 The biggest change from ROS 1 to ROS 2 is that instead of a basic Server-Client architecture ROS 2 uses a peer-to-peer communication model facilitated by [DDS (Data Distribution Service)](https://design.ros2.org/articles/ros_on_dds.html). Combined with the virtual network provided by Docker and the underlying network of your operating system this is a very complex setup that can be hard to configure.
 
---> this topic is so big it could be its own document/video?!
 TODO: Basics and link to DDS-design documentation
 
 TODO: Docker network devices on linux and their issues (network manager that might interfer)
