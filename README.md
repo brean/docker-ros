@@ -8,7 +8,8 @@ This repository should teach you how to work with the [docker engine](https://do
  - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
  - Part 7 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
  - Part 8 gives an example on how to deploy the docker image to your robot, how you cross-build it for your robots CPU and some best practices.
- - Part 9 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
+ - Part 9 is about docker and networking and possible pitfalls and issues
+ - Part 10 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -198,7 +199,27 @@ Because the image can be a few GB big its recommended to connect PC and robot vi
 ### Excample project
 As an example for a repository that can be used in production to build a docker container you can simply deploy on a raspberry pi take a look at the [Docker Environment for the Kobuki base](https://github.com/helloric/docker-env-kobuki)
 
-# Part 9: The DFKI Docker Image Development
+# Part 9: ROS 2 and network
+The biggest change from ROS 1 to ROS 2 is that instead of a basic Server-Client architecture ROS 2 uses a peer-to-peer communication model facilitated by [DDS (Data Distribution Service)](https://design.ros2.org/articles/ros_on_dds.html). Combined with the virtual network provided by Docker and the underlying network of your operating system this is a very complex setup that can be hard to configure.
+
+--> this topic is so big it could be its own document/video?!
+TODO: Basics and link to DDS-design documentation
+
+TODO: Docker network devices on linux and their issues (network manager that might interfer)
+
+TODO: When to use network-mode: host
+
+TODO: special IP addresses in the Docker network (The special 172.17.0.1 ip) (*Note on this magic IP: Some open WiFis use the same IP range, Deutsche Bahn is using the 172.X.X.X-network for their "WIFIonICE" Network for example, so if you don't get WiFi on the train configure your docker network to use another IP address pool like described [here (in German)](https://forum.ubuntuusers.de/topic/probleme-mit-dem-wifionice/#post-8964926).*)
+
+TODO: Flow-Chart for issues
+
+TODO: Debugging issues with networking (own document?)
+
+TODO: Discuss the issue if ROS 2 topic can be seen but no data
+
+TODO: How and when does the ROS 2 middleware decide when to use memory and when does it 
+
+# Part 10: The DFKI Docker Image Development
 TODO: Link to basics on https://github.com/dfki-ric/docker_image_development
 
 TODO: create repo using docker_image_development and integrate it in devContainer.
