@@ -1,15 +1,16 @@
 # Docker and ROS 2 for developers
 This repository should teach you how to work with the [docker engine](https://docs.docker.com/engine/) and the latest stable ROS 2 LTE release [jazzy](https://docs.ros.org/en/jazzy/) in a modern development setup using [Visual Studio Code](https://code.visualstudio.com/) and [Dev Container](https://code.visualstudio.com/docs/devcontainers/create-dev-container). It also provides a source of example files and links to examples and projects that you can use to build more complex robot systems.
 
- - Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup (default configuration)
- - Part 2 and 3 teach details about Docker volumes and handling file changes
- - Part 4 introduces Dev Container and using breakpoints in VS Code
- - Part 5 includes visual ros-tools (rviz2) and a different ROS 2 environment that is still simple but shows a more realistic use-case
- - Part 6 looks at integration in other systems, how docker systems are often used in a more classic setup
- - Part 7 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt package manager to more robotics specific systems like vcstool or autoproj.
- - Part 8 gives an example on how to deploy the docker image to your robot, how you cross-build it for your robots CPU and some best practices.
- - Part 9 is about docker and networking including possible pitfalls and issues
- - Part 10 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source Docker Image Development environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
+ - Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
+ - Part 2 and 3 teach details about **Docker volumes** and handling file changes
+ - Part 4 introduces **Dev Container** and using breakpoints in VS Code
+ - Part 5 includes visual ros-tools (rviz2) using **xhost** and a different ROS 2 environment that is still simple but shows a more realistic use-case
+ - Part 6 connects to real devices from inside docker, revisiting volumes and the special **device** option.
+ - Part 7 looks at integration and connection to other systems, how docker systems are often used in **server setup**
+ - Part 8 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
+ - Part 9 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices.
+ - Part 10 is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
+ - Part 11 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -145,13 +146,18 @@ TODO: rviz and ros2 bag
 
 TODO: recompile C++-code?
 
-# Part 6: Include a webserver to control a robot
+# Part 6: Docker and real hardware
+TODO: the special `device:` / `--device` option in docker / compose
+
+TODO: pitfalls working with hardware, when to use RW and privileged.
+
+# Part 7: Include a webserver to control a robot
 TODO: include https://github.com/brean/svelte-robot-control and gazebo
 
-# Part 7: Dependency Management
+# Part 8: Dependency Management
 TODO: discuss where to install what dependencies and show options like autoproj, vcs, ...
 
-# Part 8: Deploy to a robot
+# Part 9: Deploy to a robot
 On your robot you want to know exactly what software is running. Its often the case that, after testing and deploying to your robot you make changes specifically for your system on it. These changes sometimes do not find their way back into documentation or your code base. So instead lets look at different ways to deploy Docker images to the robot.
 
 ### versioning
@@ -199,7 +205,7 @@ Because the image can be a few GB big its recommended to connect PC and robot vi
 ### Excample project
 As an example for a repository that can be used in production to build a docker container you can simply deploy on a raspberry pi take a look at the [Docker Environment for the Kobuki base](https://github.com/helloric/docker-env-kobuki)
 
-# Part 9: ROS 2 and network
+# Part 10: ROS 2 and network
 The biggest change from ROS 1 to ROS 2 is that instead of a basic Server-Client architecture ROS 2 uses a peer-to-peer communication model facilitated by [DDS (Data Distribution Service)](https://design.ros2.org/articles/ros_on_dds.html). Combined with the virtual network provided by Docker, the configuration of your network manager, the real network devices of your machine and the configuration of services in the network itself (like DHCP) this becomes a very complex setup quickly that can be hard to configure and debug.
 
 TODO: Flow-Chart for issues
@@ -216,7 +222,7 @@ TODO: Discuss the issue if ROS 2 topic can be seen but no data
 
 TODO: How and when does the ROS 2 middleware decide when to use memory and when does it 
 
-# Part 10: The DFKI Docker Image Development
+# Part 11: The DFKI Docker Image Development
 TODO: Link to basics on https://github.com/dfki-ric/docker_image_development
 
 TODO: create repo using docker_image_development and integrate it in devContainer.
