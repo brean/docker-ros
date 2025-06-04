@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
     declared_watch_path = DeclareLaunchArgument(
         'code_watch_directory',
-        default_value='/ws/publishing/',
+        default_value='/ws/src/publishing/',
         description='Directory to watch for code changes.'
     )
 

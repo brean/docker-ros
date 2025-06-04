@@ -8,9 +8,9 @@ ENTRYPOINT ["/entrypoint.bash"]
 ENV ROS_WORKSPACE=/ws
 WORKDIR ${ROS_WORKSPACE}
 
-COPY ./ros/publishing/ ${ROS_WORKSPACE}/publishing
-COPY ./ros/subscribing/ ${ROS_WORKSPACE}/subscribing
-COPY README.md ${ROS_WORKSPACE}/README.md
+COPY ./ros/publishing/ ${ROS_WORKSPACE}/src/publishing
+COPY ./ros/subscribing/ ${ROS_WORKSPACE}/src/subscribing
+COPY README.md ${ROS_WORKSPACE}/src/README.md
 
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build --symlink-install

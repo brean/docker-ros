@@ -6,9 +6,9 @@ services:
       args:
         ROS_DISTRO: jazzy
     volumes:
-      - ./ros/publishing:/ws/publishing:rw
-      - ./ros/subscribing:/ws/subscribing:rw
-      - ./README.md:/ws/README.md:rw
+      - ./ros/publishing:/ws/src/publishing:rw
+      - ./ros/subscribing:/ws/src/subscribing:rw
+      - ./README.md:/ws/src/README.md:rw
     environment:
       - PYTHONUNBUFFERED=1
     command: ["/bin/sh", "-c", "sleep infinity"] 

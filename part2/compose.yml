@@ -6,7 +6,7 @@ services:
       args:
         ROS_DISTRO: jazzy
     volumes:
-      - ../ros/publishing:/ws/publishing:rw
+      - ../ros/publishing:/ws/src/publishing:rw
     environment:
       - PYTHONUNBUFFERED=1
 
@@ -17,6 +17,6 @@ services:
       args:
         ROS_DISTRO: jazzy
     volumes:
-      - ../ros/subscribing:/ws/subscribing:rw
+      - ../ros/subscribing:/ws/src/subscribing:rw
     environment:
       - PYTHONUNBUFFERED=1

@@ -7,8 +7,8 @@ ENTRYPOINT ["/entrypoint.bash"]
 
 ENV ROS_WORKSPACE=/ws
 WORKDIR ${ROS_WORKSPACE}
-COPY ./subscribing/ ${ROS_WORKSPACE}/subscribing
-COPY ./subscribing/README.md /ws/README.md
+COPY ./subscribing/ ${ROS_WORKSPACE}/src/subscribing
+COPY ./subscribing/README.md /ws/src/README.md
 
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build

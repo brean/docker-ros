@@ -7,9 +7,9 @@ services:
         ROS_DISTRO: jazzy
     volumes:
       # overwrite only specific files in the container, add new node-script
-      - ./publishing/watchdog_dev.py:/ws/publishing/publishing/main.py:rw
-      - ./publishing/node.py:/ws/publishing/publishing/node.py:rw
-      - ./publishing/launch/publishing.launch.py:/ws/publishing/launch/publishing.launch.py:rw
+      - ./publishing/watchdog_dev.py:/ws/src/publishing/publishing/main.py:rw
+      - ./publishing/node.py:/ws/src/publishing/publishing/node.py:rw
+      - ./publishing/launch/publishing.launch.py:/ws/src/publishing/launch/publishing.launch.py:rw
     environment:
       - PYTHONUNBUFFERED=1
 
@@ -20,6 +20,6 @@ services:
       args:
         ROS_DISTRO: jazzy
     volumes:
-      - ../ros/subscribing:/ws/subscribing:rw
+      - ../ros/subscribing:/ws/src/subscribing:rw
     environment:
       - PYTHONUNBUFFERED=1

@@ -33,7 +33,7 @@ class ReloadingPublisherMinimal(MinimalPublisher):
             description='The directory path to watch for code changes.'
         )
         self.declare_parameter(
-            'watch_path', '/ws/publishing/', watch_path_descriptor)
+            'watch_path', '/ws/src/publishing/', watch_path_descriptor)
         self._watch_path = self.get_parameter(
             'watch_path').get_parameter_value().string_value
 

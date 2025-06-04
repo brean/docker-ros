@@ -76,7 +76,7 @@ Using docker volumes you can increase your development speed: you don't have to 
 1. Now you see the "I received:" - without the need of rebuilding the docker container!
 1. Run `docker compose down` inside the `part2`-folder for cleanup.
 
-Note that we build the packages with `colcon` as part of the `docker compose build`-process in the Dockerfile. This means that only the code at the time you build the image gets copied into your docker image. We overwrite the code later with the volumes when we start the container. This works because we build the package as `symlink-install`, so the files that are copied into the install-folder of your workspace (which can be found at `/ws/install` in your image) link to the files of your `/ws/subscribing` or `/ws/publishing` folders. If you remove the volume your old code will be used again, as it is stored in the image. This also means that when you have bigger changes, change your structure or add new packages you need to rebuild the image.
+Note that we build the packages with `colcon` as part of the `docker compose build`-process in the Dockerfile. This means that only the code at the time you build the image gets copied into your docker image. We overwrite the code later with the volumes when we start the container. This works because we build the package as `symlink-install`, so the files that are copied into the install-folder of your workspace (which can be found at `/ws/install` in your image) link to the files of your `/ws/src/subscribing` or `/ws/src/publishing` folders. If you remove the volume your old code will be used again, as it is stored in the image. This also means that when you have bigger changes, change your structure or add new packages you need to rebuild the image.
 
 So volumes help with smaller changes while developing your code but you still need to rebuild the image when dependencies change or when you want to add additional nodes. You don't have to overwrite the full folder, you can also overwrite individual files as we see in the next part.
 
@@ -91,11 +91,11 @@ Because the docker container has its own folder structure and we now overwrite a
 1. change into the `part3`-folder and run `docker compose build`. We need to install the `python3-watchdog` dependency so we can not use the one from part2 directly. As its good practice to install files that do not change easily like your base dependencies first we put it in the beginning of the Dockerfile-publishing, besides that the new Dockerfile-publishing looks the same as the one from the last part.
 1. run `docker compose up` in the `part3`-folder. Take a look at the first lines of the log you should see a print like this telling you that an observer has been started: `[publishing-1] [INFO] [1748688244.627064228] [publishing]: Watchdog starting observer.`
 1. change the `publishing/node.py` file inside the part3-folder. This will automatically restart the node. Because we watch the whole publishing-package you can change any file to restart, if you want to use it in your own projects you'll probably want to extend the logic in the `CodeChangeHandler::on_modified`-function to only reload when specific files are changed (e.g. only python files in the `publishing` and `launch`-subfolders).
-1. In a new terminal run `docker compose run --rm publishing bash` to start a bash in a new container instance. This allows you to inspect files inside the container, use `ls` and `cd` to take a look around the `/ws`-folder, which is your whole workspace. Because we did a `--symlink-install` the files from the `build`-folder link to your local `/ws/publishing/`-files where we have overwritten with our local volume mounts.
+1. In a new terminal run `docker compose run --rm publishing bash` to start a bash in a new container instance. This allows you to inspect files inside the container, use `ls` and `cd` to take a look around the `/ws/`-folder, which is your whole workspace. Because we did a `--symlink-install` the files from the `build`-folder link to your local `/ws/src/publishing/`-files where we have overwritten with our local volume mounts.
 
 ```bash
-root@8e117851d90b:/ws# ls -al /ws/build/publishing/launch/publishing.launch.py
-lrwxrwxrwx 1 root root 42 May 31 10:20 /ws/build/publishing/launch/publishing.launch.py -> /ws/publishing/launch/publishing.launch.py
+root@8e117851d90b:/ws/# ls -al /ws/build/publishing/launch/publishing.launch.py
+lrwxrwxrwx 1 root root 42 May 31 10:20 /ws/build/publishing/launch/publishing.launch.py -> /ws/src/publishing/launch/publishing.launch.py
 ```
 5. Press <kbd>Ctrl</kbd>+<kbd>c</kbd> to exit the docker container.
 1. As always run `docker compose down` for cleanup.
@@ -121,8 +121,8 @@ Note that we also overwrite the command to run `sleep` infinitely. This is neede
 **Try for yourself**
 1. Klick on the blue "><"-Icon in the bottom-left of the VS Code window.
 1. Select "Reopen in DevContainer"
-1. Open the file `publishing/publishing/main.py` and click on the play-button in the top-right. This starts the publisher in your terminal. Just let it running. Note that you started the node as simple ros-application without any ros setup.
-1. Open the file `subscribing/subscribing/main.py` and click left of line 19 to create a breakpoint when the listener-callback gets called.
+1. Open the file `src/publishing/publishing/main.py` and click on the play-button in the top-right. This starts the publisher in your terminal. Just let it running. Note that you started the node as simple ros-application without any ros setup.
+1. Open the file `src/subscribing/subscribing/main.py` and click left of line 19 to create a breakpoint when the listener-callback gets called.
 1. Instead of pressing the play button press the small arrow next to it and select `Python Debugger: Debug python file`. Again this runs the main-script as python file not thorugh ros but because we are inside the dev container we are using the python environment of our ros system so rclpy can be found and both scripts should be able to talk to each other so you should get the thrown into the debugger immediately when a message gets received:
 
 ![](docs/images/breakpoint_in_dev_container.png)
@@ -130,7 +130,7 @@ Note that we also overwrite the command to run `sleep` infinitely. This is neede
 6. To see that debugging works you can check the value of `msg.data` by hovering over it with your mouse.
 1. You can now stop the debugger and exit the container again and switch back to the main repository inside your file system again by clicking on "File" > "Open Recent" > and click on the repository folder without "[Dev Container]" in the name (it should be the top entry in the list).
 
-Instead of running the `publishing/publishing/main.py` file from visual studio you could have also used the terminal:
+Instead of running the `src/publishing/publishing/main.py` file from visual studio you could have also used the terminal:
 1. Go back inside the container (press on the blue "><"-Icon in the bottom-left of the VS Code window) and select "Reopen in Container" or select "File" > "Open Recent" and click on the folder with "[Dev Container]" in the name.
 1. Right-click in the file list and click on "Open in Integrated Terminal"
 1. In the terminal you can now run ROS-commands inside the attached ros container, so you can simply run `ros2 launch publishing publishing.launch.py` or `ros2 run publishing publishing` to start the publisher.
