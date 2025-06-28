@@ -152,7 +152,8 @@ TODO: the special `device:` / `--device` option in docker / compose
 TODO: pitfalls working with hardware, when to use RW and privileged.
 
 # Part 7: Using docker for microros development (FreeRTOS on Raspberry Pi Pico)
-TODO: include custom setup
+Take a look at the [MicroROS Firmware for Huginn](https://github.com/brean/microros_firmware_huginn).
+It clones the [MicroROS Raspberrypi Pico SDK](https://github.com/micro-ROS/micro_ros_raspberrypi_pico_sdk.git) and overwrites its CMakeLists.txt. Without devContainer you would fork the `micro_ros_raspberrypi_pico_sdk`-repository and change the `CMakeLists.txt` and/or `pico_micro_ros_example.c`.
 
 # Part 8: Include a webserver to control a robot
 TODO: include https://github.com/brean/svelte-robot-control and gazebo
