@@ -6,7 +6,7 @@ This repository should teach you how to work with the [docker engine](https://do
  - Part 4 introduces **Dev Container** and using breakpoints in VS Code
  - Part 5 includes visual ros-tools (rviz2) using **xhost**
  - Part 6 connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads or the kobuki base.
- - Part 7 is a small detour to a more custom c-code for raspberry pi pico
+ - Part 7 is a small detour to a more custom c-code for Raspberry Pi Pico2
  - Part 8 looks at integration and connection to other systems, how docker systems are often used in **server setup**
  - Part 9 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
  - Part 10 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices.
@@ -152,8 +152,10 @@ TODO: the special `device:` / `--device` option in docker / compose
 TODO: pitfalls working with hardware, when to use RW and privileged.
 
 # Part 7: Using docker for microros development (FreeRTOS on Raspberry Pi Pico)
-Take a look at the [MicroROS Firmware for Huginn](https://github.com/brean/microros_firmware_huginn).
-It clones the [MicroROS Raspberrypi Pico SDK](https://github.com/micro-ROS/micro_ros_raspberrypi_pico_sdk.git) and overwrites its CMakeLists.txt. Without devContainer you would fork the `micro_ros_raspberrypi_pico_sdk`-repository and change the `CMakeLists.txt` and/or `pico_micro_ros_example.c`.
+If you want to develop your own realtime microros-firmware the VSCode devcontainer could also be helpful, take a look at the [MicroROS Firmware for Huginn](https://github.com/brean/microros_firmware_huginn). For an example on how to use it.
+The devContainer installs all required dependencies for microcontroller development without the need to install it locally, paths for the required SDKs are set so VS-Code can show you helpful error messages and code-autocompletion.
+
+It clones the [MicroROS Raspberrypi Pico SDK](https://github.com/micro-ROS/micro_ros_raspberrypi_pico_sdk.git) and overwrites its CMakeLists.txt in the Dockerfile. Without devContainer you would fork the `micro_ros_raspberrypi_pico_sdk`-repository and change the `CMakeLists.txt` and/or `pico_micro_ros_example.c`.
 
 # Part 8: Include a webserver to control a robot
 TODO: include https://github.com/brean/svelte-robot-control and gazebo
