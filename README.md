@@ -1,17 +1,19 @@
 # Docker and ROS 2 for developers
 This repository should teach you how to work with the [docker engine](https://docs.docker.com/engine/) and the latest stable ROS 2 LTE release [jazzy](https://docs.ros.org/en/jazzy/) in a modern development setup using [Visual Studio Code](https://code.visualstudio.com/) and [Dev Container](https://code.visualstudio.com/docs/devcontainers/create-dev-container). It also provides a source of example files and links to examples and projects that you can use to build more complex robot systems.
 
- - Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
- - Part 2 and 3 teach details about **Docker volumes** and handling file changes
- - Part 4 introduces **Dev Container** and using breakpoints in VS Code
- - Part 5 includes visual ros-tools (rviz2) using **xhost**
- - Part 6 connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads or the kobuki base.
- - Part 7 is a small detour to a more custom c-code for Raspberry Pi Pico2
- - Part 8 looks at integration and connection to other systems, how docker systems are often used in **server setup**
- - Part 9 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
- - Part 10 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices.
- - Part 11 is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
- - Part 12 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
+(_Not all of these are done, I just manged to finish the parts with the checkmark ✅_)
+
+ - ✅ Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
+ - ✅ Part 2 and 3 teach details about **Docker volumes** and handling file changes
+ - ✅ Part 4 introduces **Dev Container** and using breakpoints in VS Code
+ - ❌ Part 5 includes **visual ros-tools** (rviz2) without using xhost and supporting Wayland
+ - ❌ Part 6 connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads or the kobuki base.
+ - ✅ Part 7 is a small detour to a more custom c-code for Raspberry Pi Pico2
+ - ❌ Part 8 looks at integration and connection to other systems, how docker systems are often used in **server setup**
+ - ❌ Part 9 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
+ - ✅ Part 10 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices (From the [HelloRIC](https://github.com/helloric)-project).
+ - ❌ Part 11 is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
+ - ❌ Part 12 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -143,6 +145,7 @@ This is the minimum basic setup for a dev-container, we will at another, still s
 For more details read about the [VS Code Python debugging documentation](https://code.visualstudio.com/docs/python/debugging).
 
 # Part 5: GUI-Tools and Camera streams (RVIZ, RQT and Gazebo)
+TODO: Why Wayland - X11 isn't fully dead yet?!
 TODO: rviz and ros2 bag
 TODO: Gazebo/rqt
 
@@ -157,7 +160,7 @@ The devContainer in that project installs all required dependencies for microcon
 
 It clones the [MicroROS Raspberrypi Pico SDK](https://github.com/micro-ROS/micro_ros_raspberrypi_pico_sdk.git) and overwrites its CMakeLists.txt in the Dockerfile. Without devContainer you would fork the `micro_ros_raspberrypi_pico_sdk`-repository and change the `CMakeLists.txt` and/or `pico_micro_ros_example.c`.
 
-You just change the code and build it inside the devcontainer and then copy the .uf2-file to your pico. Take a look at the compose.yml file to see how volumes are used to support the deveopment.
+You just change the code and build it inside the devcontainer and then copy the `.uf2`-file to your pico. Take a look at the `compose.yml` file to see how volumes are used to support the deveopment.
 
 # Part 8: Include a webserver to control a robot
 TODO: include https://github.com/brean/svelte-robot-control and gazebo
