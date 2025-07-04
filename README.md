@@ -7,17 +7,17 @@ If you need knowledge from any of the unfinished chapter feel free to contact me
 
  - ✅ Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
  - ✅ Part 2 and 3 teach details about **Docker volumes** and handling file changes
- - ✅ Part 4 introduces **Dev Container** and using **breakpoints** in VS Code
- - ❌ Part 5 dives into best-practices by creating Unit tests for component and integration **Testing**.
+ - ❌ [Part 4](https://github.com/brean/docker-ros/issues/2) introduces **Dev Container** and using **breakpoints** in VS Code
+ - ❌ [Part 5](https://github.com/brean/docker-ros/issues/6) dives into best-practices by creating Unit tests for component and integration **Testing**.
  - ❌ [Part 6](https://github.com/brean/docker-ros/issues/4) includes **visual ros-tools** (rviz2) using Wayland
  - ❌ [Part 7](https://github.com/brean/docker-ros/issues/1) connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads, lidar-scanner or the kobuki base.
  - ✅ Part 8 is a small detour to a more custom c-code for Raspberry Pi Pico2
- - ❌ Part 9 streams images from a WebCam in a more complex remote-control setup
- - ❌ Part 10 extends part 8 to not only stream camera images but also connection to other systems, how docker systems can be used in a "cloud robotics" **server setup**.
- - ❌ Part 11 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
+ - ❌ [Part 9](https://github.com/brean/docker-ros/issues/7) streams images from a WebCam in a more complex remote-control setup
+ - ❌ [Part 10](https://github.com/brean/docker-ros/issues/8) extends part 9 to not only stream camera images but also connection to other systems, how docker systems can be used in a "cloud robotics" **server setup**.
+ - ❌ [Part 11](https://github.com/brean/docker-ros/issues/9) discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
  - ✅ Part 12 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices (From the [HelloRIC](https://github.com/helloric)-project).
- - ❌ Part 13 is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
- - ❌ Part 14 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
+ - ❌ [Part 13](https://github.com/brean/docker-ros/issues/10) is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
+ - ❌ [Part 14](https://github.com/brean/docker-ros/issues/11) is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -262,6 +262,8 @@ TODO: Docker network devices on linux and their issues (network manager that mig
 TODO: When to use network-mode: host
 
 TODO: special IP addresses in the Docker network (The special 172.17.0.1 ip) (*Note on this magic IP: Some open WiFis use the same IP range, Deutsche Bahn is using the 172.X.X.X-network for their "WIFIonICE" Network for example, so if you don't get WiFi on the train configure your docker network to use another IP address pool like described [here (in German)](https://forum.ubuntuusers.de/topic/probleme-mit-dem-wifionice/#post-8964926).*)
+
+TODO: Connecting MicroROS-Agent to ROS network (also link to this in chapter about microros)
 
 TODO: Debugging issues with networking (own document?)
 
