@@ -6,7 +6,7 @@ This repository should teach you how to work with the [docker engine](https://do
  - ✅ Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
  - ✅ Part 2 and 3 teach details about **Docker volumes** and handling file changes
  - ✅ Part 4 introduces **Dev Container** and using **breakpoints** in VS Code
- - ❌ Part 5 dives into best-practices by creating Unit tests for component and integration tests.
+ - ❌ Part 5 dives into best-practices by creating Unit tests for component and integration **Testing**.
  - ❌ [Part 6](https://github.com/brean/docker-ros/issues/4) includes **visual ros-tools** (rviz2) using Wayland
  - ❌ [Part 7](https://github.com/brean/docker-ros/issues/1) connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads, lidar-scanner or the kobuki base.
  - ✅ Part 8 is a small detour to a more custom c-code for Raspberry Pi Pico2
