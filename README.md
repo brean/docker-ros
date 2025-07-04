@@ -22,6 +22,16 @@ If you need knowledge from any of the unfinished chapter feel free to contact me
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
+## Installation
+For all parts you need
+1. [VS Code](https://code.visualstudio.com/download) (If you want to use [Codium](https://vscodium.com/) you can use [DevPodContainers](https://github.com/3timeslazy/vscodium-devpodcontainers), however it requires some more steps to setup and is still experimental so we focus on VS Code).
+1. docker ([docker-ce](https://docs.docker.com/engine/install/) recommended)
+   1. don't forget to do the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) (creating the `docker`-group and add yourself)
+1. The [VS Code Dev Container extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (not needed for the first 3 parts)
+1. (optional) [docker-nvidia-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if you have an nvidia-gpu and don't want software rendering for 3D tools like [rviz](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html), starting at step 5.
+1. Beginner to intermediate ROS 2 and python knowledge, some docker basics. The [Tutorials](https://docs.ros.org/en/jazzy/Tutorials.html) on the ROS 2 website are a good start be aware of a steep learning curve if you are new to ROS!
+1. Some disk space as docker container can take up some GB.
+
 ## TL:DR!
 You don't want to read it all but need to get your robot working quickly?
 
@@ -32,13 +42,3 @@ Here are some exisiting solutions for some problems you might have:
  - For a MicroROS-example see [MicroROS firmeare for the Huginn robot](https://github.com/brean/microros_firmware_huginn) as example project with PWM/PPM control for different motors (More in [Part 8](08_microros_development.md))
  - Copy a docker image to a robot see [Part 12](12_deploy_docker_image.md)
  - You have a network issue and like to follow a checklist what to do? see [Part 13](13_ros_network.md) (WIP)
-
-## Installation
-For all parts you need
-1. [VS Code](https://code.visualstudio.com/download) (If you want to use [Codium](https://vscodium.com/) you can use [DevPodContainers](https://github.com/3timeslazy/vscodium-devpodcontainers), however it requires some more steps to setup and is still experimental so we focus on VS Code).
-1. docker ([docker-ce](https://docs.docker.com/engine/install/) recommended)
-   1. don't forget to do the [post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) (creating the `docker`-group and add yourself)
-1. The [VS Code Dev Container extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (not needed for the first 3 parts)
-1. (optional) [docker-nvidia-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if you have an nvidia-gpu and don't want software rendering for 3D tools like [rviz](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html), starting at step 5.
-1. Beginner to intermediate ROS 2 and python knowledge, some docker basics. The [Tutorials](https://docs.ros.org/en/jazzy/Tutorials.html) on the ROS 2 website are a good start be aware of a steep learning curve if you are new to ROS!
-1. Some disk space as docker container can take up some GB.
