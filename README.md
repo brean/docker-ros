@@ -5,16 +5,17 @@ This repository should teach you how to work with the [docker engine](https://do
 
  - ✅ Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
  - ✅ Part 2 and 3 teach details about **Docker volumes** and handling file changes
- - ✅ Part 4 introduces **Dev Container** and using breakpoints in VS Code
- - ❌ [Part 5](https://github.com/brean/docker-ros/issues/4) includes **visual ros-tools** (rviz2) using Wayland
- - ❌ [Part 6](https://github.com/brean/docker-ros/issues/1) connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads, lidar-scanner or the kobuki base.
- - ✅ Part 7 is a small detour to a more custom c-code for Raspberry Pi Pico2
- - ❌ Part 8 streams images from a WebCam in a more complex remote-control setup
- - ❌ Part 9 extends part 8 to not only stream camera images but also connection to other systems, how docker systems can be used in a "cloud robotics" **server setup**.
- - ❌ Part 10 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
- - ✅ Part 11 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices (From the [HelloRIC](https://github.com/helloric)-project).
- - ❌ Part 12 is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
- - ❌ Part 13 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
+ - ✅ Part 4 introduces **Dev Container** and using **breakpoints** in VS Code
+ - ❌ Part 5 dives into best-practices by creating Unit tests for component and integration tests.
+ - ❌ [Part 6](https://github.com/brean/docker-ros/issues/4) includes **visual ros-tools** (rviz2) using Wayland
+ - ❌ [Part 7](https://github.com/brean/docker-ros/issues/1) connects to real devices from inside docker, revisiting volumes and the special **device** option to use USB-Devices like Gamepads, lidar-scanner or the kobuki base.
+ - ✅ Part 8 is a small detour to a more custom c-code for Raspberry Pi Pico2
+ - ❌ Part 9 streams images from a WebCam in a more complex remote-control setup
+ - ❌ Part 10 extends part 8 to not only stream camera images but also connection to other systems, how docker systems can be used in a "cloud robotics" **server setup**.
+ - ❌ Part 11 discusses dependency management, we evaluate different systems that can be used to manage dependencies, from just using the apt **package manager** to more robotics specific systems like **vcstool** or **autoproj**.
+ - ✅ Part 12 gives an example on how to deploy the docker image to your robot, how you cross-build using **dockerx** for your robots CPU and some best practices (From the [HelloRIC](https://github.com/helloric)-project).
+ - ❌ Part 13 is about docker networking including possible pitfalls and issues with the **Docker network with ROS2**.
+ - ❌ Part 14 is a bit specific for development at [DFKI-RIC](https://robotik.dfki-bremen.de/en/startpage), we take a look at the Open Source **Docker Image Development** environment. Even if you are not connected to DFKI, maybe it also makes sense for you to use or modify it to streamline your development process.
 
 This tutorial is directed towards ROS 2 (mostly python) developers who want to accelerate their development process, ROS 2 basics are assumed.
 
@@ -147,7 +148,18 @@ This is the minimum basic setup for a dev-container, we will at another, still s
 For more details read about the [VS Code Python debugging documentation](https://code.visualstudio.com/docs/python/debugging).
 
 
-# Part 5: GUI-Tools and Camera streams (RVIZ, RQT and Gazebo)
+# Part 5: Testing - Unit and Integration tests
+
+TODO: simple testing using pytest
+
+TODO: coverage
+
+TODO: github Action for testing simple python code
+
+TODO: github Action for testing ROS 2 nodes using [launch_testing](https://docs.ros.org/en/ros2_packages/jazzy/api/launch_testing/)
+
+
+# Part 6: GUI-Tools and Camera streams (RVIZ, RQT and Gazebo)
 TODO: Why Wayland - X11 isn't fully dead yet?!
 
 TODO: rviz and ros2 bag
@@ -155,7 +167,7 @@ TODO: rviz and ros2 bag
 TODO: Gazebo/rqt
 
 
-# Part 6: Docker and real hardware
+# Part 7: Docker and real hardware
 TODO: the special `device:` / `--device` option in docker / compose
 
 TODO: pitfalls working with hardware, when to use RW and privileged.
@@ -163,7 +175,7 @@ TODO: pitfalls working with hardware, when to use RW and privileged.
 TODO: Docker + USB: Always get same address (udev-rules)
 
 
-# Part 7: Using docker for microros development (FreeRTOS on Raspberry Pi Pico)
+# Part 8: Using docker for microros development (FreeRTOS on Raspberry Pi Pico)
 If you want to develop your own realtime microros-firmware the VSCode devcontainer could also be helpful, take a look at the [MicroROS Firmware for Huginn](https://github.com/brean/microros_firmware_huginn).
 The devContainer in that project installs all required dependencies for microcontroller development without the need to install it locally, paths for the required SDKs are set so VS-Code can show you helpful error messages and code-autocompletion.
 
@@ -173,20 +185,23 @@ You just change the code and build it inside the devcontainer and then copy the 
 
 Note that MicroROS only provides a limited number of services (normally just one in the generic configuration!)
 
-# Part 8: Image and Video streaming
+
+# Part 9: Image and Video streaming
 TODO: Easy: stream images directly, rqt-image-view
 
 TODO: WebRTC and Web-Output
 
 
-# Part 9: Include a webserver to control a robot
+# Part 10: Include a webserver to control a robot
 TODO: include https://github.com/brean/svelte-robot-control and gazebo
 
 
-# Part 10: Dependency Management
+# Part 11: Dependency Management
 TODO: discuss where to install what dependencies and show options like autoproj, vcs, ...
 
-# Part 11: Deploy to a robot
+
+
+# Part 12: Deploy to a robot
 On your robot you want to know exactly what software is running. Its often the case that, after testing and deploying to your robot you make changes specifically for your system on it. These changes sometimes do not find their way back into documentation or your code base. So instead lets look at different ways to deploy Docker images to the robot.
 
 ### versioning
@@ -235,7 +250,7 @@ Because the image can be a few GB big its recommended to connect PC and robot vi
 As an example for a repository that can be used in production to build a docker container you can simply deploy on a raspberry pi take a look at the [Docker Environment for the Kobuki base](https://github.com/helloric/docker-env-kobuki)
 
 
-# Part 12: ROS 2 and network
+# Part 13: ROS 2 and network
 The biggest change from ROS 1 to ROS 2 is that instead of a basic Server-Client architecture ROS 2 uses a peer-to-peer communication model facilitated by [DDS (Data Distribution Service)](https://design.ros2.org/articles/ros_on_dds.html). Combined with the virtual network provided by Docker, the configuration of your network manager, the real network devices of your machine and the configuration of services in the network itself (like DHCP) this becomes a very complex setup quickly that can be hard to configure and debug.
 
 TODO: Flow-Chart for issues
@@ -254,7 +269,7 @@ TODO: How and when does the ROS 2 middleware decide when to use memory and when 
 
 TODO: the Future use zenoh everywhere!
 
-# Part 13: The DFKI Docker Image Development
+# Part 14: The DFKI Docker Image Development
 TODO: Link to basics on https://github.com/dfki-ric/docker_image_development
 
 TODO: create repo using docker_image_development and integrate it in devContainer.
