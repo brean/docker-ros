@@ -1,7 +1,9 @@
 # Docker and ROS 2 for developers
 This repository should teach you how to work with the [docker engine](https://docs.docker.com/engine/) and the latest stable ROS 2 LTE release [jazzy](https://docs.ros.org/en/jazzy/) in a modern development setup using [Visual Studio Code](https://code.visualstudio.com/) and [Dev Container](https://code.visualstudio.com/docs/devcontainers/create-dev-container). It also provides a source of example files and links to examples and projects that you can use to build more complex robot systems.
 
-(_Not all of these are done, I just manged to finish the parts with the checkmark ✅_)
+(_Not all of these are done, I just manged to finish the parts with the checkmark ✅_).
+
+If you need knowledge from any of the unfinished chapter feel free to contact me, I will then prioritze that chapter. If you like to help with documentation also feel free to contact me.
 
  - ✅ Part 1 introduces a basic ROS 2 and Docker setup with 2 Docker container connected over the internal Docker setup using **docker compose**.
  - ✅ Part 2 and 3 teach details about **Docker volumes** and handling file changes
