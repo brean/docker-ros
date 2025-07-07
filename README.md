@@ -38,7 +38,7 @@ You don't want to read it all but need to get your robot working quickly?
 Here are some exisiting solutions for some problems you might have:
 
  - You want to use a python debugger (debugpy) take a look at [Part 4](04_dev_container.md)
- - You need to send images with limited bandwidth over network, use the [WebRTC-Bridge](https://github.com/brean/webrtc_bridge). (More in Part 9)
+ - You need to send images with limited bandwidth over network, use the [WebRTC Video Streaming](https://github.com/brean/webrtc_video_streaming). (More in Part 9)
  - For a MicroROS-example see [MicroROS firmeare for the Huginn robot](https://github.com/brean/microros_firmware_huginn) as example project with PWM/PPM control for different motors (More in [Part 8](08_microros_development.md))
  - Copy a docker image to a robot see [Part 12](12_deploy_docker_image.md)
  - You have a network issue and like to follow a checklist what to do? see [Part 13](13_ros_network.md) (WIP)
